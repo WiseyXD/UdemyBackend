@@ -2,17 +2,17 @@ const mongoose = require("mongoose");
 
 mongoose.connect("mongodb+srv://WiseyXD:Qwerty88**@testcluster.hbkxnkx.mongodb.net/udemyDB")
 
-const AdminSchema = new mongoose.schema({
+const AdminSchema = new mongoose.Schema({
     username : String,
     password : String,
 })
 
-const UserSchema = new mongoose.schema({
+const UserSchema = new mongoose.Schema({
     username : String,
     password : String,
 })
 
-const CourseSchema = new mongoose.schema({
+const CourseSchema = new mongoose.Schema({
     title : String,
     description : String,
     author : String,
