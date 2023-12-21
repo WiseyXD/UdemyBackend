@@ -1,4 +1,4 @@
-const Admin = require("../db/index");
+const {Admin} = require("../db/index");
 
 async function adminMiddleware(req, res, next) {
     try {
