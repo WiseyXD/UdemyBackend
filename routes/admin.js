@@ -1,9 +1,12 @@
 const express = require("express");
 const { v4: uuidv4 } = require('uuid');
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { Router } = express;
 const router = Router();
 const adminMiddleware = require("../middlewares/admin");
+
+const jwtKey = "secret";
 
 const { Admin,Course } = require("../db/index");
 
@@ -50,7 +53,9 @@ router.get("/login", async (req,res)=>{
         {
             throw new Error("Passwrod didnt Match");
         }
-
+        const token = await jwt.sign(username,jwtKey);
+        const admin = await Admin.findOneAndUpdate({username : username}, { $set: { token: token }});
+        await admin.save();
         res.status(200).json({
             msg : "Successfull Login"
         })

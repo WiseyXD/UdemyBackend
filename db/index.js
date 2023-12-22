@@ -5,11 +5,13 @@ mongoose.connect("mongodb+srv://WiseyXD:Qwerty88**@testcluster.hbkxnkx.mongodb.n
 const AdminSchema = new mongoose.Schema({
     username : String,
     password : mongoose.Mixed,
+    token : mongoose.Mixed
 })
 
 const UserSchema = new mongoose.Schema({
     username : String,
     password : mongoose.Mixed,
+    token : mongoose.Mixed
 })
 
 const CourseSchema = new mongoose.Schema({
