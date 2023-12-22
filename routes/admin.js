@@ -1,5 +1,6 @@
 const express = require("express");
 const { v4: uuidv4 } = require('uuid');
+const bcrypt = require("bcrypt");
 const { Router } = express;
 const router = Router();
 const adminMiddleware = require("../middlewares/admin");
@@ -10,7 +11,7 @@ const { Admin,Course } = require("../db/index");
 router.post("/signup", async (req, res) => {
     const username = req.headers.username;
     const password = req.headers.password;
-
+    const hashPassword = await bcrypt.hash(password , 10);
     // Create new Admin
     try {
         const exists = await Admin.findOne({username : username});
@@ -20,7 +21,7 @@ router.post("/signup", async (req, res) => {
         }
         const admin = new Admin({
             username: username,
-            password: password,
+            password: hashPassword,
         });
         await admin.save();
         res.status(201).json({
@@ -33,6 +34,32 @@ router.post("/signup", async (req, res) => {
     }
     
 });
+
+router.get("/login", async (req,res)=>{
+    const username = req.headers.username;
+    const password = req.headers.password;
+    // Login Admin
+    try {   
+        const exists = await Admin.findOne({username});
+        if(!exists)
+        {
+            throw new Error("Admin doesnt exist");
+        }
+
+        if(!await bcrypt.compare(password , exists.password))
+        {
+            throw new Error("Passwrod didnt Match");
+        }
+
+        res.status(200).json({
+            msg : "Successfull Login"
+        })
+    } catch (error) {
+        res.status(500).json({
+            msg : error
+        })
+    }
+})
 
 router.post("/courses", adminMiddleware,async (req, res) => {
     // Implement course creation logic

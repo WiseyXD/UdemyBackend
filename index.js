@@ -7,6 +7,7 @@ const PORT = 3000;
 
 // TODO : bcrypt for password hashing
 // TODO : JWT Authorization
+
 // Middleware for parsing request bodies
 app.use(bodyParser.json());
 app.use("/admin", adminRouter)
