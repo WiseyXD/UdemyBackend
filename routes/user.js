@@ -19,7 +19,7 @@ router.post('/signup', async(req, res) => {
         }
         const user = new User({
             username,
-            hashPassword
+            password : hashPassword
         })
         await user.save();
         res.status(201).json({
