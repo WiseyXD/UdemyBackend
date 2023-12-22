@@ -19,14 +19,22 @@ const CourseSchema = new mongoose.Schema({
     domain : String,
     imageLink : String,
     price : Number,
+    id : String,
+})
+
+const CartSchema = new mongoose.Schema({
+    username : String,
+    course : CourseSchema,
 })
 
 const Admin = mongoose.model('Admin', AdminSchema);
 const User = mongoose.model('User', UserSchema);
 const Course = mongoose.model('Course', CourseSchema);
+const Cart = mongoose.model("Cart" , CartSchema);
 
 module.exports = {
     Admin,
     User,
-    Course
+    Course,
+    Cart
 }

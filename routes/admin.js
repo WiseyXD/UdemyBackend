@@ -1,4 +1,5 @@
 const express = require("express");
+const { v4: uuidv4 } = require('uuid');
 const { Router } = express;
 const router = Router();
 const adminMiddleware = require("../middlewares/admin");
@@ -54,7 +55,8 @@ router.post("/courses", adminMiddleware,async (req, res) => {
             author : username,
             domain ,
             imageLink,
-            price 
+            price,
+            id:uuidv4(),
         })
         await course.save();
         res.status(201).json({

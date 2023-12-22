@@ -1,4 +1,4 @@
-const User = require("../db/index");
+const {User} = require("../db/index");
 
 async function userMiddleware(req, res, next) {
     try {
